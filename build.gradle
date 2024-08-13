@@ -1,5 +1,5 @@
 plugins {
-    id 'org.jetbrains.intellij' version '1.17.3'
+    id 'org.jetbrains.intellij.platform' version '2.0.1'
     id 'java'
 }
 
@@ -8,16 +8,26 @@ version '1.8'
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
+    // See https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html#target-platforms
+    intellijPlatform {
+        intellijIdeaCommunity('2024.2')
+        instrumentationTools()
+    }
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
-intellij {
-    version = '2024.2'
+intellijPlatform {
+    pluginConfiguration {
+        name = 'Moonlight Jetbrains Theme'
+    }
 }
 patchPluginXml {
     changeNotes = """
